@@ -11,8 +11,8 @@ public class Aircraft {
     /**
      * Default constructor
      */
-    public Aircraft(String code, Airline airlineOperator) {
-        aircraftCode = code;
+    public Aircraft(String aircraftCode, Airline airlineOperator) {
+        aircraftCode = aircraftCode;
         this.airlineOperator = airlineOperator;
         seats = new ArrayList<Seat>();
     }

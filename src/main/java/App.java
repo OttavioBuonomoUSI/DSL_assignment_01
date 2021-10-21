@@ -1,4 +1,3 @@
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +46,9 @@ public class App {
         Aircraft aircraft3 = new Aircraft("359", PAA);
         Seat seatAGseg3 = new Seat("45K", Cabin.ECONOMY, AG);
         aircraft3.AddSeat(seatAGseg3);
-        // (First) Flight
+        // (Second) Flight
         Flight holsydf = new Flight("100", PAA, hol, syd, aircraft3);
-        // (First) Segment
+        // (Second) Segment
         Segment holsyds = new Segment("403", OA, holsydf);
 
         // Trips
