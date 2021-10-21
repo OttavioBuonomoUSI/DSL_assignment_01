@@ -1,32 +1,31 @@
 
 import java.util.*;
-
 /**
  * 
  */
 public class Booking {
 
+    private List<Trip> trips;
+    private List<Passenger> passengers;
+    private String referenceNumber;
+
     /**
      * Default constructor
+     * @param trips2
      */
-    public Booking() {
+    public Booking(String referenceNumber) {
+        this.referenceNumber = referenceNumber;
+        trips = new ArrayList<Trip>();
+        passengers = new ArrayList<Passenger>();
     }
 
-    /**
-     * 
-     */
-    public List<Trip> trips;
+    public void addTrip(Trip trip) {
+        this.trips.add(trip);
+    }
 
-    /**
-     * 
-     */
-    public List<Passenger> passengers;
-
-    /**
-     * 
-     */
-    public String referenceNumber;
-
+    public void addPassenger(Passenger passenger) {
+        this.passengers.add(passenger);
+    }
 
 
 }

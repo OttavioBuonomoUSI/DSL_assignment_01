@@ -1,26 +1,33 @@
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 /**
  * 
  */
-public abstract class Trip {
+public class Trip {
+
+    private Airport departureAirport;
+    private Airport arrivalAirport;
+    private Queue<Segment> segments;
 
     /**
      * Default constructor
      */
-    public Trip() {
+    public Trip(Airport departureAirport, Airport arrivalAirport) {
+        this.departureAirport = departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        segments = new LinkedList<Segment>();
     }
 
     /**
      * 
+     * @param segment
      */
-    public Airport departureAirport;
-
-    /**
-     * 
-     */
-    public Airport arrivalAirport;
+    public void addSegment(Segment segment){
+        segments.add(segment);
+    }
 
 
 

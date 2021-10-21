@@ -1,31 +1,18 @@
 
-import java.util.*;
-
 /**
  * 
  */
 public class Passenger {
 
+    private String name;
+
     /**
      * Default constructor
      */
-    public Passenger() {
+    public Passenger(String name) {
+        this.name = name;
     }
 
-    /**
-     * 
-     */
-    public Seat seat;
-
-    /**
-     * 
-     */
-    public String name;
-
-    /**
-     * 
-     */
-    public String passengerId;
 
 
 

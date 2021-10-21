@@ -6,15 +6,16 @@ import java.util.*;
  */
 public class Airline {
 
-    /**
-     * Default constructor
-     */
-    public Airline() {
-    }
+    private String airlineName;
+    private String iataCode;
 
     /**
-     * 
+     * Default constructor
+     * @param string
      */
-    public String iataCode;
+    public Airline(String airlineName, String iataCode) {
+        this.airlineName = airlineName;
+        this.iataCode = iataCode;
+    }
 
 }
