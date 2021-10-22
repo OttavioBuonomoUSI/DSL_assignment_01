@@ -10,14 +10,12 @@ public class Trip {
 
     private Airport departureAirport;
     private Airport arrivalAirport;
-    private Queue<Segment> segments;
+    private List<Segment> segments;
 
     /**
      * Default constructor
      */
-    public Trip(Airport departureAirport, Airport arrivalAirport) {
-        this.departureAirport = departureAirport;
-        this.arrivalAirport = arrivalAirport;
+    public Trip() {
         segments = new LinkedList<Segment>();
     }
 
@@ -27,6 +25,16 @@ public class Trip {
      */
     public void addSegment(Segment segment){
         segments.add(segment);
+        setDepartureAirport();
+        setArrivalAirport();
+    }
+
+    private void setDepartureAirport() {
+        departureAirport = segments.get(0).getDepartureAirport();
+    }
+
+    private void setArrivalAirport() {
+        arrivalAirport = segments.get( segments.size()-1 ).getArrivalAirport();
     }
 
 

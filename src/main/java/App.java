@@ -1,79 +1,82 @@
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
+
+// Example
+// Passenger Alex Geek has a booking with two trips, 
+// from Sydney - SYD to Los Angeles - LAX and back (LAX to SYD). 
+// The first trip has only one segment, from SYD to LAX, marketed 
+// and operated by Oceanic Airlines (IATA code OX) with flight number 815. 
+// The reserved seat for the passenger is 3A in business class.
+// On the way back, the trip has two segments, 
+// from SYD to HNL (Honolulu) and from HNL to LAX. 
+// The first segment is marketed and operated by 
+// Oceanic Airlines with flight number 700, 
+// and the second segment is marketed by Oceanic Airlines with flight number 403, 
+// but operated by Pan Am Airlines with flight number 100. 
+// Seat reservations are for seats 44A and 45K respectively, in economy class.
+// The first trip has a business fare with code DFFAU, 
+// a flexible fare, that costs 4500 US dollars, 
+// while the return trip has an economy fare with code LLLAU 
+// (standard fare) that costs 1000 US dollars.
 
 public class App {
     public static void main(String[] args) {
 
-        // Passenger
-        Passenger AG = new Passenger("Alex Geek");
-
         // Airports
-        Airport syd = new Airport("SYD", "Sydney");
+        Airport gva = new Airport("GVA", "Geneva");
+        Airport zrh = new Airport("ZRH", "Zurich");
         Airport lax = new Airport("LAX", "Los Angeles");
-        // Airline
-        Airline OA = new Airline("Ocean Airlines", "OX");
+        Airport cdg = new Airport("CDG", "Parigi");
 
-        // Way forward (SYD-LAX) //
+        // Airlines
+        Airline LX = new Airline("Swiss", "LX");
 
-        // Aircraft and seats
-        Aircraft aircraft1 = new Aircraft("77W", OA);
-        Seat seatAGseg1 = new Seat("3A", Cabin.BUSINESS, AG);
-        aircraft1.AddSeat(seatAGseg1);
-        // Flight (1-1 with Segment)
-        Flight sydlaxf = new Flight("815", OA, syd, lax, aircraft1);
-        // Segments
-        Segment sydlaxs = new Segment("815", OA, sydlaxf);
+        // Way forward (GVA-ZRH-LAX) //
+        
+        // Segment (1) 
+        Aircraft aircraft1 = new Aircraft("77W", LX);        
+        Passenger AG = new Passenger("Alex Geek", aircraft1.getSeatById("15D"));
+        aircraft1.setSeatToPassenger("15D", AG);
+        Segment gvazrh = new Segment("1711", LX, gva, zrh, aircraft1);
 
-    
-        // Way back (LAX-HOL-SYD) //
+        // Segment (2)
+        Aircraft aircraft2 = new Aircraft("77Z", LX);        
+        aircraft2.setSeatToPassenger("9A", AG);
+        AG.setNewSeat(aircraft2.getSeatById("9A"));
+        Segment zrhlax = new Segment("40", LX, zrh, lax, aircraft2);
 
-        // New airport
-        Airport hol = new Airport("HNL", "Honolulu");
+        // (Outbound) trip
+        Trip gvalaxTrip = new Trip();
+        gvalaxTrip.addSegment(gvazrh);
+        gvalaxTrip.addSegment(zrhlax);
 
-        // (New) Marketed Airline
-        Airline PAA = new Airline("Pan Am Airlines", "PX");
+        // Way back (LAX-CDG-GVA) //
 
-        // Aircrafts and seats
+        // Segment (1) 
+        Aircraft aircraft3 = new Aircraft("78W", LX);  
+        aircraft3.setSeatToPassenger("12C", AG); 
+        AG.setNewSeat(aircraft3.getSeatById("12C"));     
+        Segment laxcdg = new Segment("42", LX, lax, cdg, aircraft3);
 
-        Aircraft aircraft2 = new Aircraft("339", OA);
-        Seat seatAGseg2 = new Seat("44A", Cabin.ECONOMY, AG);
-        aircraft2.AddSeat(seatAGseg2);
-        // (First) Flight
-        Flight laxholf = new Flight("700", OA, lax, hol, aircraft2);
-        // (First) Segment
-        Segment laxhols = new Segment("700", OA, laxholf);
+        // Segment (2)
+        Aircraft aircraft4 = new Aircraft("78Z", LX);        
+        aircraft2.setSeatToPassenger("11B", AG);
+        AG.setNewSeat(aircraft2.getSeatById("11B"));
+        Segment cdggva = new Segment("39", LX, cdg, gva, aircraft4);
 
-        Aircraft aircraft3 = new Aircraft("359", PAA);
-        Seat seatAGseg3 = new Seat("45K", Cabin.ECONOMY, AG);
-        aircraft3.AddSeat(seatAGseg3);
-        // (Second) Flight
-        Flight holsydf = new Flight("100", PAA, hol, syd, aircraft3);
-        // (Second) Segment
-        Segment holsyds = new Segment("403", OA, holsydf);
-
-        // Trips
-        List<Trip> trips = new ArrayList<Trip>();
-
-        // Trip 1 (Way-forward)
-        Trip departureTrip = new Trip(lax, syd);
-        departureTrip.addSegment(sydlaxs);
-
-        // Trip 2 (Way-back)
-        Trip arrivalTrip = new Trip(syd,lax);
-        arrivalTrip.addSegment(laxhols);
-        arrivalTrip.addSegment(holsyds);
-
-        // Add trips to the list
-        trips.add(departureTrip);
-        trips.add(arrivalTrip);
+        // (Inbound) trip
+        Trip laxgvaTrip = new Trip();
+        laxgvaTrip.addSegment(laxcdg);
+        laxgvaTrip.addSegment(cdggva);
 
         // Booking
-        Booking book = new Booking("1234QWERTY");
+        Booking gvalaxBooking = new Booking("GVALAX1234");
+        gvalaxBooking.addPassenger(AG);
+        gvalaxBooking.addTrip(gvalaxTrip);
+        gvalaxBooking.addTrip(laxgvaTrip);
 
-        // (Simulation) Passenger "Alex Geek"
-        book.addPassenger(AG);
-        book.addTrip(departureTrip);
-        book.addTrip(departureTrip);
+        System.out.println("Compilo");
         
     }
 }
